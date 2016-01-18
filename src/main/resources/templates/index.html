@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+
+        <title>Google Auth, JPA &eamp; Angular-Material</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/webjars/angular-material/1.0.0/angular-material.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+        <script type="text/javascript" th:src="@{/webjars/jquery/2.1.1/jquery.js}"></script>
+        <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js}"></script>
+        <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-animate.js}"></script>
+        <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-aria.js}"></script>
+        <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-messages.js}"></script>
+        <script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-resource.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/angular-ui-router/0.2.15/angular-ui-router.js}"></script>
+        <script type="text/javascript" th:src="@{/webjars/angular-material/1.0.0/angular-material.js}"></script>
+
+        <script type="text/javascript" th:src="@{/js/app.js}"></script>
+        <script type="text/javascript" th:src="@{/js/commons/appCtrl.js}"></script>
+        <script type="text/javascript" th:src="@{/js/home/home.controller.js}"></script>
+        <script type="text/javascript" th:src="@{/js/commons/user.service.js}"></script>
+        <script type="text/javascript" th:src="@{/js/calendar/Calendar.service.js}"></script>
+        <script type="text/javascript" th:src="@{/js/calendar/MyCalendar.Controller.js}"></script>
+    </head>
+    <body ng-app="app" layout="column" ng-controller="appCtrl as appCtrl" ng-cloak="ng-cloak">
+
+        <md-toolbar layout="row">
+            <div class="md-toolbar-tools">
+                <md-button ng-click="appCtrl.toggleSidenav('left')" hide-gt-sm="hide-gt-sm" class="md-icon-button">
+                    <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+                </md-button>
+                <h1>Google Auth + Angular-Material</h1>
+            </div>
+        </md-toolbar>
+
+        <div layout="row" flex="flex">
+            <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+                <md-toolbar layout="row" ng-if="!appCtrl.authenticated">Please log-in</md-toolbar>
+                <md-toolbar layout="row" ng-if="appCtrl.authenticated">Welcome {{appCtrl.user.firstName}}</md-toolbar>
+                <md-list>
+                    <md-list-item>
+                        <md-button>
+                            <div flex="flex" layout="row">
+                                <i class="material-icons md-48 md-dark">home</i>
+                                <span><a ui-sref="app.home">Home</a></span>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ng-if="appCtrl.authenticated">
+                        <md-button>
+                            <div flex="flex" layout="row">
+                                <i class="material-icons md-48 md-dark">people</i>
+                                <span><a ui-sref="app.list">Calendrier de mon équipe</a></span>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ng-if="appCtrl.authenticated">
+                        <md-button>
+                            <div flex="flex" layout="row">
+                                <i class="material-icons md-48 md-dark">date_range</i>
+                                <span><a ui-sref="app.myCalendar">Mes absences</a></span>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ng-if="appCtrl.user.hasAuthority('Admin')">
+                        <md-button>
+                            <div flex="flex" layout="row">
+                                <i class="material-icons md-48 md-dark">comment</i>
+                                <span><a ui-sref="app.list">Gérer les demandes</a></span>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item ng-if="appCtrl.authenticated">
+                        <md-button>
+                            <div flex="flex" layout="row">
+                                <i class="material-icons md-48 md-dark">exit_to_app</i>
+                                <span><a ng-click="appCtrl.logout()">Logout</a></span>
+                            </div>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </md-sidenav>
+
+            <div layout="column" flex="flex" id="content">
+                <md-content layout="column" flex="flex" class="md-padding">
+                    <ui-view/>
+                </md-content>
+            </div>
+        </div>
+    </body>
+</html>

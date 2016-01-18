@@ -1,0 +1,36 @@
+## Application settings
+## Set here details about your google authentication service, database, und so weiter
+---
+security:
+  oauth2:
+    client:
+      # see readme for details about the clientId and clientSecret
+      clientId: 
+      clientSecret: 
+      accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+      clientAuthenticationScheme: query
+      tokenName: token
+      scope: email profile
+    resource:
+      userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+      #tokenInfoUri: https://www.googleapis.com/oauth2/v3/tokeninfo
+      preferTokenInfo: false
+spring:
+  resources:
+    chain:
+      enabled: true
+  datasource:
+    # data persistence
+    url: 
+    username: 
+    password: 
+    driver-class-name: org.apache.derby.jdbc.ClientDriver (or any other driver, given your database type)
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      jadira:
+        usertype:
+          autoRegisterUserTypes: true

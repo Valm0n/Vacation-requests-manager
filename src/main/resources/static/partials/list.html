@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Table avec données tirées de MongoDB</h3>
+            </div>
+            <div class="panel-body">
+                <div ui-grid="gridOptions" ui-grid-selection class="myGrid"></div>
+                <span ng-if="user.admin" style='float:right;'><a href ng-click='createOrEditEntry(true)'>Ajouter une entrée</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary" ng-show="selectedEntry">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Entrée selectionnée</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div><img ng-src="{{selectedEntry.imgUrl}}" alt="missing picture" class="customerPicture" /></div>
+                        <div class="boldName">{{selectedEntry.firstName + ' ' + selectedEntry.lastName}}</div>
+                        <div><b>Planète d'origine: </b>{{selectedEntry.race}}</div>
+                        <div><b>Affiliation: </b>{{selectedEntry.job}}</div>
+                        <span ng-if="user.admin" style="float:right;"><a href ng-click="createOrEditEntry(false)">Editer</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-if="user.admin" class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-primary" ng-show="editedEntry">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Ajout/Edition d'une entrée...</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="firstNameInput">Prénom</label>
+                                <input type="text" placeholder="Prénom..." id="firstNameInput" class="form-control" ng-model="entryModel.firstName" />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastNameInput">Nom</label>
+                                <input type="text" placeholder="Nom..." id="lastNameInput" class="form-control" ng-model="entryModel.lastName" />
+                            </div>
+                            <div class="form-group">
+                                <label for="raceInput">Race</label>
+                                <input type="text" placeholder="Race..." id="raceInput" class="form-control" ng-model="entryModel.race" />
+                            </div>
+                            <div class="form-group">
+                                <label for="jobInput">Profession</label>
+                                <input type="text" placeholder="Profession..." id="jobInput" class="form-control" ng-model="entryModel.job" />
+                            </div>
+                            <div class="form-group">
+                                <label for="imgInput">Image</label>
+                                <input type="text" placeholder="url de l'image" id="imgInput" class="form-control" ng-model="entryModel.imgUrl" ng-blur="tryAndLoadImg()" />
+                                <img ng-show="tryImgUrl" ng-src="{{tryImgUrl}}" class="customerPicture" />
+                            </div>
+                            <button type="submit" class="btn btn-default" ng-click="saveEntry()">Sauver</button><button class="btn btn-warning" ng-click="removeEntry()">Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

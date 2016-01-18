@@ -1,0 +1,75 @@
+## Liquibase Database initialization
+## just set an empty database in application.yml; Liquibase will create all the tables we need
+---
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: vsimon
+      changes:
+        - createTable:
+            tableName: user_entry
+            columns:
+              - column:
+                  name: user_id
+                  type: varchar(50)
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: picture_url
+                  type: varchar(255)
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                      nullable: false
+              - column:
+                  name: user_role
+                  type: integer
+                  defaultValue: 0
+                  constraints:
+                      nullable: false
+        - createTable:
+            tableName: user_calendar_entry
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                      nullable: false
+                      primaryKey: true
+              - column:
+                  name: user_id
+                  type: varchar(50)
+                  constraints:
+                      nullable: false
+                      foreignKeyName: fk_user_id
+                      references: user_entry(user_id)
+              - column:
+                  name: start_date
+                  type: date
+                  constraints:
+                      nullable: false
+              - column:
+                  name: end_date
+                  type: date
+                  constraints:
+                    nullable: true
+              - column:
+                  name: approved
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false

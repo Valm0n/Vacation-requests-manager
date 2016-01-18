@@ -1,0 +1,13 @@
+<div>
+    <md-content flex="flex" ng-show="ctrl.calendar">
+        <h1>Mes Absences</h1>
+        
+        <a ng-click='ctrl.fetchEntries()'>Fetch entries</a>
+        <table>
+            <tr ng-repeat="entry in ctrl.entries">
+                <td><b>{{entry.id}} </b></td><td>{{entry.startDate + ' - ' + entry.endDate}}</td><td><i class="material-icons md-18 md-dark">{{entry.approved ? 'check_circle' : 'schedule'}}</i></td></tr>
+            </tr>
+        </table>
+        
+    </md-content>
+</div>

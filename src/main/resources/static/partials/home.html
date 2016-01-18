@@ -1,0 +1,17 @@
+<div>
+    <md-content flex="flex" ng-show="!home.user.authenticated">
+        <p>This application requires you to authenticate in order to use it.</p>
+        <form action="/login" method="get" accept-charset="utf-8">
+            <button type="submit">
+                <img alt="Proceed to Google login" src="https://www.google.com/favicon.ico" height="16" width="16" /> Proceed to Google login
+            </button>
+        </form>
+    </md-content>
+
+    <md-content flex="flex" ng-show="home.user.authenticated">
+        <p>Hello {{home.user.details.firstName + " " + home.user.details.lastName}}!</p>
+        <img class="profilePicture" ng-src="{{home.user.details.pictureUrl}}" alt="this should be your profile picture" />
+        <p>This message indicates that you are successfully authenticated.
+            You can now see all your user details by accessing the url <a href="/user">/user</a> </p>
+    </md-content>
+</div>
