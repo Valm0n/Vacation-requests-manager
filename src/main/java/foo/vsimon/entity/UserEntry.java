@@ -13,7 +13,9 @@ import foo.vsimon.model.GoogleProfile;
 import foo.vsimon.model.RoleValues;
 import java.io.Serializable;
 import javax.persistence.Id;
+import javax.persistence.Entity;
 
+@Entity
 public class UserEntry implements Serializable {
 
     @Id
