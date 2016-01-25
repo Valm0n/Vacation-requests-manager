@@ -3,9 +3,9 @@
 
     angular.module('app').service('User', UserService);
 
-    UserService.$inject = ['$resource', '$http', '$location'];
+    UserService.$inject = ['$resource', '$http', '$state'];
 
-    function UserService($resource, $http, $location) {
+    function UserService($resource, $http, $state) {
 
         var that = this;
         var UserResource = $resource('user');
@@ -20,15 +20,7 @@
                             if (data.userId !== null) {
                                 var currentUser = data;
                                 currentUser.hasAuthority = function (authority) {
-                                    //var hasAuthority = false;
-                                    return currentUser.role === authority;
-//                                    currentUser.roles.some(function(role){
-//                                        if(authority === role){
-//                                            hasAuthority = true;
-//                                            return true;
-//                                        }
-//                                    });
-//                                    return hasAuthority;
+                                    return currentUser.userRole === authority;
                                 };
                                 that.details = currentUser;
                                 that.authenticated = true;
@@ -48,6 +40,7 @@
             this.details = null;
             this.authenticated = false;
             $http.get('/signout');
+            $state.go('app.home');
         };
     }
 })();

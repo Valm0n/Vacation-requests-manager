@@ -6,10 +6,19 @@ angular.module("app", ['ngMaterial', 'ngResource', 'ui.router', 'md.data.table']
                 }
             ]
         )
-    .config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
-                function($stateProvider, $urlRouterProvider, $httpProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$rootScope',
+                function($stateProvider, $urlRouterProvider, $httpProvider, $rootScope) {
                     
                     $urlRouterProvider.otherwise('/');
+                    
+                    function isAllowed(expectedAccess){
+                        if($rootScope.user.authenticated){
+                            if($rootScope.user.hasAuthority(expectedAccess)){
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
                     
                     $stateProvider
                         .state('app', {
@@ -26,7 +35,12 @@ angular.module("app", ['ngMaterial', 'ngResource', 'ui.router', 'md.data.table']
                             url: "/myCalendar",
                             templateUrl: 'partials/myCalendar.html',
                             controller: 'MyCalendarController',
-                            controllerAs: 'ctrl'
+                            controllerAs: 'ctrl',
+                            onEnter: function($state){
+                                if(!isAllowed('User')){
+                                    $state.go('app.home');
+                                }
+                            }
                     });
                         
                         
