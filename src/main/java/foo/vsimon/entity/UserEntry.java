@@ -14,6 +14,7 @@ import foo.vsimon.model.RoleValues;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Entity;
 
 @Entity
 public class UserEntry implements Serializable {
