@@ -1,0 +1,36 @@
+<md-dialog aria-label="New entry"  ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>New Entry</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <i class="material-icons md-18" aria-label="Close">clear</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <h2>Nouvelle demande</h2>
+            <form name="userForm">
+                <div layout-gt-xs="row">
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>Utilisateur (Disabled)</label>
+                        <input ng-model="newEntry.userId" disabled>
+                    </md-input-container>
+                    <md-datepicker ng-model="newEntry.startDate" md-placeholder="Début">
+                    </md-datepicker>
+                    <md-datepicker ng-model="newEntry.endDate" md-placeholder="fin">
+                    </md-datepicker>
+                </div>
+            </form>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="saveRequest()" style="margin-right:20px;">
+            Save
+        </md-button>
+        <md-button ng-click="cancel()">
+            Cancel
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

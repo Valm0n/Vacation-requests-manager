@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,9 +35,15 @@ public class CalendarController {
     
     @RequestMapping(value="/user/{id}", method=RequestMethod.GET)
     public @ResponseBody List<UserCalendarEntry> getEntriesForUser(@PathVariable("id") String userId) throws JsonProcessingException {
-        LOGGER.info("Getting Calendar entries for given user");
+        LOGGER.debug("Getting Calendar entries for given user");
         List<UserCalendarEntry> entries =  repository.findByUserId(userId);
         return entries;
+    }
+    
+    @RequestMapping(value="/new", method=RequestMethod.POST)
+        public UserCalendarEntry createNewEntry(@RequestBody UserCalendarEntry entry) throws JsonProcessingException{
+        repository.save(entry);
+        return entry;
     }
     
     @PreAuthorize("@CustomSecurity.isAdmin()")

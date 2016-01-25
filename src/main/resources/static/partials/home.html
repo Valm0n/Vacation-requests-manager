@@ -1,11 +1,15 @@
 <div>
     <md-content flex="flex" ng-show="!home.user.authenticated">
-        <p>This application requires you to authenticate in order to use it.</p>
-        <form action="/login" method="get" accept-charset="utf-8">
-            <button type="submit">
-                <img alt="Proceed to Google login" src="https://www.google.com/favicon.ico" height="16" width="16" /> Proceed to Google login
-            </button>
-        </form>
+        <span class="md-whiteframe-5dp md-warn">
+            <h2 class="md-flex">This application requires you to authenticate in order to use it.</h2>
+        </span>
+        <md-content>
+            <form action="/login" method="get" accept-charset="utf-8">
+                <button type="submit">
+                    <img alt="Proceed to Google login" src="https://www.google.com/favicon.ico" height="16" width="16" /> Proceed to Google login
+                </button>
+            </form>
+        </md-content>
     </md-content>
 
     <md-content flex="flex" ng-show="home.user.authenticated">

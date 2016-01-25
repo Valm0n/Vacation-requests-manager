@@ -1,4 +1,4 @@
-angular.module("app", ['ngMaterial', 'ngResource', 'ui.router'])
+angular.module("app", ['ngMaterial', 'ngResource', 'ui.router', 'md.data.table'])
 .run(['$rootScope', '$state', '$stateParams', 
                 function($rootScope, $state, $stateParams){
                     $rootScope.state = $state;

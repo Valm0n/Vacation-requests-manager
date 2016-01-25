@@ -1,13 +1,39 @@
 <div>
     <md-content flex="flex" ng-show="ctrl.calendar">
         <h1>Mes Absences</h1>
-        
-        <a ng-click='ctrl.fetchEntries()'>Fetch entries</a>
-        <table>
-            <tr ng-repeat="entry in ctrl.entries">
-                <td><b>{{entry.id}} </b></td><td>{{entry.startDate + ' - ' + entry.endDate}}</td><td><i class="material-icons md-18 md-dark">{{entry.approved ? 'check_circle' : 'schedule'}}</i></td></tr>
-            </tr>
-        </table>
-        
+
+        <md-button class="md-primary md-raised" ng-click="ctrl.showAdvanced($event)" flex="100" flex-gt-md="auto">
+            <i class="material-icons md-18 md-dark">add</i> Nouvelle demande
+        </md-button>
+
+        <md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <span>Mes demandes de congés</span>
+            </div>
+        </md-toolbar>
+
+        <!-- exact table from live demo -->
+        <md-table-container>
+            <table md-table>
+                <thead md-head md-order="startDate">
+                    <tr md-row>
+                        <th md-column><span>From</span></th>
+                        <th md-column>To</th>
+                        <th md-column>Duration</th>
+                        <th md-column>Approved</th>
+                        <th md-column>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="entry in ctrl.entries">
+                        <td md-cell>{{entry.startDate | formatJodaTime}}</td>
+                        <td md-cell>{{entry.endDate | formatJodaTime}}</td>
+                        <td md-cell>todo</td>
+                        <td md-cell><i class="material-icons md-18 md-dark">{{entry.approved ? 'done' : 'schedule'}}</i></td>
+                        <td md-cell><i class="material-icons md-18">mode_edit</i><i class="material-icons md-18">delete</i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
     </md-content>
 </div>

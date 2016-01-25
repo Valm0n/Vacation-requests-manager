@@ -52,6 +52,9 @@ public class UserController {
                 if(userEntry == null){
                     userEntry = new UserEntry(profile, RoleValues.User);
                     repository.save(userEntry);
+                } else if(!userEntry.getPictureUrl().equals(profile.getPicture())){
+                    userEntry.setPictureUrl(profile.getPicture());
+                    repository.save(userEntry);
                 }
                 currentUser = userEntry;
                 return userEntry;

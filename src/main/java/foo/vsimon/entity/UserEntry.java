@@ -12,8 +12,10 @@ package foo.vsimon.entity;
 import foo.vsimon.model.GoogleProfile;
 import foo.vsimon.model.RoleValues;
 import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Entity
 public class UserEntry implements Serializable {
 
     @Id

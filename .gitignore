@@ -1,3 +1,4 @@
 target
 *.log
 .mvn
+bower_components
